@@ -1,0 +1,17 @@
+const express=require('express')
+const app=express()
+app.get('/',function(req,res){
+    res.send('Hello World!')
+})
+app.post('/',function(req,res){
+    res.send("post /")
+})
+app.put('/user',function(req,res){
+    res.send('put user')
+})
+app.delete('/user',function(req,res){
+    res.send('delete user')
+})
+app.listen(3000,()=>{
+    console.log('http://localhost:3000')
+})
