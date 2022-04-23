@@ -1,5 +1,5 @@
 const fs =require('fs')
-const {promisify}=require('util')  // 將 callback 形式的 API 轉換成 Promise 形式
+const { promisify }=require('util')  // 將 callback 形式的 API 轉換成 Promise 形式
 const path=require('path')
 
 const readFile=promisify(fs.readFile)
