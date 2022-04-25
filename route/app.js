@@ -89,11 +89,45 @@ app.post('/todos',async function(req,res){
         })
     }
 })
-app.patch('/todos/:id',function(req,res){//修改
-    res.send('patch /todos')
+app.patch('/todos/:id',async function(req,res){//修改
+    try{
+        //取得資料
+        const todo=req.body
+        const db=await getDb()
+        //匹配資料
+        const ret=db.todos.find(todo => todo.id ===Number.parseInt(req.params.id))
+
+        if(! ret){
+            return res.status(404).end()
+        }
+        Object.assign(ret,todo) // 淺複製，將新的覆蓋到舊的，所以 db 會被修改
+        //儲存資料
+        await saveDb(db)
+        res.status(200).json(ret)
+        // res.status(200).json(await getDb())
+        
+    }catch(err){
+        res.status(500).json({
+            "error":err.message
+        })
+    }
 })
-app.delete('/todos/:id',function(req,res){
-    res.send('delete /todos')
+app.delete('/todos/:id',async function(req,res){
+    try{
+        const todoId=Number.parseInt(req.params.id)
+        const db=await getDb()
+        const index=db.todos.findIndex(todo=>todo.id===todoId)
+        if(index===-1){
+            return res.status(404).end()
+        }
+        db.todos.splice(index,1)
+        await saveDb()
+        res.status(204).end()
+    }catch(err){
+        res.status(500).json({
+            "error":err.message
+        })
+    }
 })
 app.listen(3000,()=>{
     console.log('http://localhost:3000')
