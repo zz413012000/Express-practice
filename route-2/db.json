@@ -1,0 +1,29 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "sleep"
+    },
+    {
+      "id": 2,
+      "title": "eat"
+    },
+    {
+      "title": "run",
+      "id": 3
+    },
+    {
+      "title": "fight",
+      "id": 4
+    },
+    {
+      "title": "fight",
+      "id": 5
+    },
+    {
+      "title": "shower",
+      "id": 6
+    }
+  ],
+  "users": []
+}

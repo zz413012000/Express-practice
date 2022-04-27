@@ -47,6 +47,27 @@ app.post('/todos',async function(req,res){
         })
     }
 })
+app.patch('/todos/:id',async (req,res)=>{
+    try{
+        //取得資料
+        //匹配資料
+        //儲存資料
+        const todo=req.body
+        const db=await getDb()
+        const resultTodo=db.todos.find(todo=>todo.id===Number.parseInt(req.params.id))
+        if(!resultTodo){
+            return res.status(404).end()
+        }
+        Object.assign(resultTodo,todo)
+        await saveDb(db)
+        res.status(200).json(todo)
+        
+    }catch(err){
+        res.status(500).json({
+            "error":err.message
+        })
+    }
+})
 
 app.listen(3000,function(){
     console.log("http://localhost:3000")
